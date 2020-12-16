@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import React, { Component } from "react";
+
+class App extends Component {
+  state = {
+    perso : [],
+  }
+
+  componentDidMount(){
+    fetch('https://swapi.dev/api/people/')
+    .then(res => res.json())
+    .then(data => 
+      this.setState({
+        perso: data.results
+      }))
+  }
+
+//why the api isLoaded make the loading screen
+// instead of showing all the chara info make props 
+//practice
+
+render(){
+  return(
+    <div>
+      <h1>hello</h1>
+      {
+      this.state.perso.map((names,index)=> 
+      <div key={index}>
+      <p>{names.name}</p>
+      <p>{names.birth_year}</p>
+      </div>
+      )}
     </div>
-  );
+  )
+}
+
 }
 
 export default App;
